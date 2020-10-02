@@ -5,24 +5,25 @@ CREATE DATABASE bancario;
 USE bancario;
 
 CREATE TABLE conta (
-    numero_conta INT UNSIGNED,
-    nome_cliente VARCHAR(15) NOT NULL,
-    sobrenome_cliente VARCHAR(15) NOT NULL,
+    nr_conta SMALLINT(5) UNSIGNED, /* Troquei o tipo da variavel para ocupar menos espaço no banco de dados, pois não há clientes que excedão 
+    um numero de conta equivalente a 65536, precisando de inúmeros cadastros  */
+    nm_cliente VARCHAR(15) NOT NULL,
+    snm_cliente VARCHAR(15) NOT NULL,
     dtnasc_cliente DATE,
     dtabertura_conta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    saldo DECIMAL(10 , 2 ) NOT NULL DEFAULT 0,
-    PRIMARY KEY (numero_conta)
+    saldo DECIMAL(10 , 2) NOT NULL DEFAULT 0,
+    PRIMARY KEY (nr_conta)
 )  ENGINE=INNODB;
 
 CREATE TABLE movimentacao (
-    numero_conta INT UNSIGNED,
+    nr_conta SMALLINT(5) UNSIGNED,
     dtmov_conta TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'NÃO USAR ISSO NA PRÁTICA!',
-    valor_mov DECIMAL(10 , 2 ) NOT NULL,
-    descricao_mov VARCHAR(255),
-    PRIMARY KEY (numero_conta , dtmov_conta),
-    INDEX (numero_conta),
-    FOREIGN KEY (numero_conta)
-        REFERENCES conta (numero_conta)
+    vl_mov DECIMAL(10 , 2 ) NOT NULL,
+    ds_mov VARCHAR(255),
+    PRIMARY KEY (nr_conta , dtmov_conta),
+    INDEX (nr_conta),
+    FOREIGN KEY (nr_conta)
+        REFERENCES conta (nr_conta)
 )  ENGINE=INNODB;
 
 INSERT INTO conta VALUES(12345, 'João', 'Silva', '1995-12-25', null, 0);
