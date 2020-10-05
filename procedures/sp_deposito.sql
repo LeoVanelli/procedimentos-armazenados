@@ -4,7 +4,7 @@ DROP PROCEDURE IF EXISTS sp_deposito$$
 
 CREATE PROCEDURE sp_deposito(IN p_conta SMALLINT(5) UNSIGNED, p_valor DECIMAL(10 , 2))
 BEGIN
-	DECLARE descricao varchar(55);
+	DECLARE descricao varchar(80);
 	DECLARE v_saldo , c_conta int;
     SELECT nr_conta INTO c_conta FROM conta WHERE nr_conta = p_conta LIMIT 1;
 	SELECT saldo INTO v_saldo FROM conta WHERE c_conta = p_conta LIMIT 1;
